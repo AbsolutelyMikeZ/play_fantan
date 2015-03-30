@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  suit: MyString
+  name: MyString
+  abbreviation: MyString
+  rank: 1
+
+two:
+  suit: MyString
+  name: MyString
+  abbreviation: MyString
+  rank: 1

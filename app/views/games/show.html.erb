@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Turn:</strong>
+  <%= @game.turn %>
+</p>
+
+<p>
+  <strong>Num players:</strong>
+  <%= @game.num_players %>
+</p>
+
+<p>
+	<strong>Who's in the game:</strong><br />
+	<table>
+		<tr>
+			<th>Screen Name</th>
+			<th>Hand</th>
+			<th>Paid Pot</th>
+			<th>Actions</th>
+		</tr>
+	<% @game.lineups.each do |l| %>
+		<tr>
+			<td><%= l.player.screen_name %></td>
+			<td></td>
+			<td><%= l.amount_paid %></td>
+			<td>
+				<%= form_for l, url: {controller: 'lineups', action: "pay_pot", :id => l.id} do |f| %>
+				<%= f.submit "Pay the Pot" %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	</table>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @game.completed %>
+</p>
+
+
+<%= link_to 'Back', games_path %>
