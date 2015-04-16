@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330032454) do
+ActiveRecord::Schema.define(version: 20150416050213) do
 
   create_table "cards", force: :cascade do |t|
     t.string   "suit",         limit: 255
@@ -38,14 +38,27 @@ ActiveRecord::Schema.define(version: 20150330032454) do
     t.datetime "updated_at",            null: false
   end
 
+  create_table "hands", force: :cascade do |t|
+    t.integer  "lineup_id",   limit: 4
+    t.integer  "card_id",     limit: 4
+    t.boolean  "viable_play", limit: 1, default: false
+    t.integer  "ai_rank",     limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "hands", ["card_id"], name: "index_hands_on_card_id", using: :btree
+  add_index "hands", ["lineup_id"], name: "index_hands_on_lineup_id", using: :btree
+
   create_table "lineups", force: :cascade do |t|
     t.integer  "game_id",     limit: 4
     t.integer  "player_id",   limit: 4
     t.integer  "seat_number", limit: 4
-    t.integer  "amount_paid", limit: 4, default: 0
-    t.boolean  "won_pot",     limit: 1, default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "amount_paid", limit: 4,   default: 0
+    t.boolean  "won_pot",     limit: 1,   default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "last_action", limit: 255, default: "Nothing yet"
   end
 
   add_index "lineups", ["game_id"], name: "index_lineups_on_game_id", using: :btree

@@ -11,24 +11,83 @@
 </p>
 
 <p>
+	<strong>Cards on the board</strong><br />
+	<% board = @game.cards.arranged %>
+	Clubs: 
+	<% board.each do |board| %>
+	  <% if board.suit == "Clubs" %>
+	    <%= board.abbreviation %>&nbsp;
+	  <% end %>
+	<% end %>
+	<br />
+	Diamonds: 
+	<% board.each do |board| %>
+	  <% if board.suit == "Diamonds" %>
+	    <%= board.abbreviation %>&nbsp;
+	  <% end %>
+	<% end %>
+	<br />
+	Hearts: 
+	<% board.each do |board| %>
+	  <% if board.suit == "Hearts" %>
+	    <%= board.abbreviation %>&nbsp;
+	  <% end %>
+	<% end %>
+	<br />
+	Spades: 
+	<% board.each do |board| %>
+	  <% if board.suit == "Spades" %>
+	    <%= board.abbreviation %>&nbsp;
+	  <% end %>
+	<% end %>
+	<br />
+</p>
+
+<p>
 	<strong>Who's in the game:</strong><br />
 	<table>
 		<tr>
 			<th>Screen Name</th>
 			<th>Hand</th>
 			<th>Paid Pot</th>
-			<th>Actions</th>
+			<th>Pay</th>
+			<th>Last Action</th>
 		</tr>
 	<% @game.lineups.each do |l| %>
+	  <% viable_card_counter = 0 %>
 		<tr>
 			<td><%= l.player.screen_name %></td>
-			<td></td>
-			<td><%= l.amount_paid %></td>
-			<td>
-				<%= form_for l, url: {controller: 'lineups', action: "pay_pot", :id => l.id} do |f| %>
-				<%= f.submit "Pay the Pot" %>
+			<td><% if l.player.human %>
+				  <% l.hands.arranged.each do |h| %>
+				    <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
+				      <% if h.viable_play && l.seat_number == @game.turn %>
+				        <%= f.submit "#{h.card.abbreviation}" %>&nbsp;
+				        <% viable_card_counter += 1 %>
+				      <% else %>
+				        <%= f.submit "#{h.card.abbreviation}", disabled: true %>&nbsp;
+				      <% end %>
+				    <% end %>
+				  <% end %>
+				<% else %>
+				  Cards Left: <%= l.hands.count %>
 				<% end %>
 			</td>
+			<td><%= l.amount_paid %></td>
+			<td><% if l.player.human %>
+				  <%= form_for l, url: {controller: 'games', action: "pay_pot", :lineup_id => l.id} do |f| %>
+				    <% if viable_card_counter == 0 && l.seat_number == @game.turn %>
+				      <%= f.submit "Pay the Pot" %>
+				    <% else %>
+				      <%= f.submit "Pay the Pot", disabled: true %>
+				    <% end %>
+				  <% end %>
+				<% elsif l.seat_number == @game.turn %>
+				  <%= form_for l, url: {controller: 'games', action: "play_for_bot"} do |f| %>
+				    <%= f.submit "Play Robot" %>
+				  <% end %>
+				<% end %>
+			</td>
+			<td><%= l.last_action %></td>
 		</tr>
 	<% end %>
 	</table>
@@ -40,4 +99,4 @@
 </p>
 
 
-<%= link_to 'Back', games_path %>
+<%= link_to 'New Game', new_game_path %>

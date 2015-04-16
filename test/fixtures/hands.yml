@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  viable_play: false
+  ai_rank: 1
+
+two:
+  viable_play: false
+  ai_rank: 1

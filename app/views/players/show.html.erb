@@ -30,5 +30,26 @@
   <%= @player.human %>
 </p>
 
+
+<% gp = @player.lineups.count %>
+<% gw = @player.lineups.where(won_pot: true).count %>
+<% pl = @player.lineups.sum("amount_paid") * -1 %>
+<% wpct = gw * 100 / gp %>
+<% plpg = pl * 1.0 / gp %>
+<table>
+	<tr>
+		<th>Games Played</th>
+		<th>Games Won (%)</th>
+		<th>Profit/Loss</th>
+		<th>P/L per Game</th>
+	</tr>
+	<tr>
+		<td><%= gp %></td>
+		<td><%= gw %>&nbsp;(<%= number_to_percentage(wpct, precision: 1) %>)</td>
+		<td><%= pl %></td>
+		<td><%= number_with_precision(plpg, precision: 2) %></td>
+	</tr>
+</table>
+
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

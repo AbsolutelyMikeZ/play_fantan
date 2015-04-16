@@ -3,18 +3,14 @@ Rails.application.routes.draw do
 
   resources :games do
     member do
-      get 'advance_turn'
+      patch 'pay_pot'
+      patch 'play_card'
+      patch 'play_for_bot'
     end
   end
 
   resources :cards
   
-  resources :lineups do
-    member do
-      patch 'pay_pot'
-    end
-  end
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

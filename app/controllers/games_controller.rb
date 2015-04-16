@@ -28,11 +28,15 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        #Create lineups for the Players in the Game
+        # Create lineups for the Players in the Game
         players = Player.first(4)
         players.each_with_index do |player, i|
           lineup = Lineup.create(:game_id => @game.id, :player_id => player.id, :seat_number => i + 1)
         end
+        
+        # Deal the cards
+        deal_em = DealNewGame.new(@game).deal
+        
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
@@ -56,13 +60,7 @@ class GamesController < ApplicationController
     end
   end
   
-  def advance_turn
-    @game = Game.find(params[:id])
-    @game.turn < @game.num_players ? @game.turn += 1 : @game.turn = 1
-    @game.save
-    redirect_to action: 'show'
-    # Need to add error checking if it doesn't save - then what????
-  end
+
 
   # DELETE /games/1
   # DELETE /games/1.json
@@ -74,6 +72,21 @@ class GamesController < ApplicationController
     end
   end
   
+  
+  def pay_pot
+    PayPotService.new(params[:lineup_id]).pay_the_pot
+    redirect_to controller: 'games', action: 'show', id: params[:id]
+  end
+  
+  def play_card
+    PlayCardService.new(params[:hand_id], params[:id]).play_the_card
+    redirect_to controller: 'games', action: 'show', id: params[:id]
+  end
+  
+  def play_for_bot
+    PlayBotTurn.new(params[:id]).play_turn
+    redirect_to controller: 'games', action: 'show', id: params[:id]
+  end
 
 
   private
