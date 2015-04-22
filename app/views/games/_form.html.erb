@@ -11,17 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :turn %><br>
-    <%= f.number_field :turn %>
-  </div>
+
   <div class="field">
     <%= f.label :num_players %><br>
-    <%= f.number_field :num_players %>
-  </div>
-  <div class="field">
-    <%= f.label :completed %><br>
-    <%= f.check_box :completed %>
+    <%= f.select(:num_players, [3, 4, 5, 6, 7]) %>
   </div>
   <div class="actions">
     <%= f.submit %>

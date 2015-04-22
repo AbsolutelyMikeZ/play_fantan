@@ -8,27 +8,27 @@ class PlayBotTurn
     @game = Game.find(@game_id)
     
     # Count viable plays
-    bot_lineup = Lineup.includes(:hands, :cards).where("lineups.game_id = #{@game_id}").where("lineups.seat_number = #{@game.turn}")
+    bot_lineup = Lineup.includes(:hands, :cards).where("lineups.game_id = #{@game_id}").where("lineups.seat_number = #{@game.turn}").first
     count = 0
-    bot_lineup[0].hands.each do |h|
+    bot_lineup.hands.each do |h|
       h.viable_play ? count += 1 : count += 0
     end
     
     # If none, pay the pot
     if count == 0
-      pay_it_bitch = PayPotService.new(bot_lineup[0].id.to_i).pay_the_pot
+      pay_it_bitch = PayPotService.new(bot_lineup.id.to_i).pay_the_pot
     end
     
     # If one, play it
     if count == 1
-      hand_to_play = bot_lineup[0].hands.select { |x| x.viable_play == true }
-      play_card = PlayCardService.new(hand_to_play[0].id, @game_id).play_the_card
+      hand_to_play = bot_lineup.hands.select { |x| x.viable_play == true }.first
+      play_card = PlayCardService.new(hand_to_play.id, @game_id).play_the_card
     end
     
     # If multiple, calculate AI rank for each then choose by lowest AI rank
     if count > 1
-      possible_plays = bot_lineup[0].hands.select { |x| x.viable_play == true }
-      all_cards = bot_lineup[0].cards.to_a
+      possible_plays = bot_lineup.hands.select { |x| x.viable_play == true }
+      all_cards = bot_lineup.cards.to_a
       lowest_ai_score = 100
       best_hand_id = nil
       

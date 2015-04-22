@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Login</h1>
+
+<%= form_for(:session, url: login_path) do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+  	<%= f.label :password %>
+  	<%= f.password_field :password %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :remember_me %>
+  	<%= f.label :remember_me %><span> on this computer</span>
+ </div>
+  <div class="actions">
+  	<%= f.submit "Log In" %>
+  </div>
+<% end %>
+
+<p>New Player?  <%= link_to "Sign up now!", new_player_path %></p>
+  

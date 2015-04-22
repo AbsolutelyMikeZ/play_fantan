@@ -1,37 +1,44 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Players</h1>
 
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Password</th>
-      <th>Screen name</th>
-      <th>Human</th>
-      <th colspan="3"></th>
+      <% headers = ["Screen Name", "Games Played", "Games Won (%)", "Profit/Loss", "P/L per Game"] %>
+      <% headers.each_with_index do |header, i| %>
+      <% direction = (i + 1) == params[:sort].to_i && params[:order] == "desc" ? "asc" : "desc" %>	
+      <th><%= link_to header, :sort => i + 1, :order => direction %></th>
+      <% end %>
     </tr>
   </thead>
+  
 
   <tbody>
-    <% @players.each do |player| %>
+    <% @stats.each do |player| %>
       <tr>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
-        <td><%= player.email %></td>
-        <td><%= player.password %></td>
         <td><%= player.screen_name %></td>
-        <td><%= player.human %></td>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= player.games_played %></td>
+		<td><%= player.wins %>&nbsp;(<%= number_to_percentage(player.win_pct * 100, precision: 1) %>)</td>
+		<td><%= player.profit %></td>
+		<td><%= number_with_precision(player.ppg, precision: 2) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<% last_page = (@players.count/20.0).ceil %>
+<% if last_page > 1 %>
+<p>Page: 
+	<% params[:page].nil? ? this_page = 1 : this_page = params[:page].to_i %>
+	<% if this_page > 1 %>
+	  <%= link_to "First", :sort => params[:sort], :page => 1 %>
+	  <%= link_to "Previous", :sort => params[:sort], :page => this_page - 1 %>
+	<% end %>
+	
+	<% if this_page < last_page %>
+	  <%= link_to "Next", :sort => params[:sort], :page => this_page + 1 %>
+	  <%= link_to "Last", :sort => params[:sort], :page => last_page %>
+	<% end %>
+</p>
+<% end %>
 <br>
 
-<%= link_to 'New Player', new_player_path %>

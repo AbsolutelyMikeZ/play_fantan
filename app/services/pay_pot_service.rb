@@ -5,7 +5,7 @@ class PayPotService
   
   def pay_the_pot
     @payee = Lineup.find(@lineup_id)
-    @payee.amount_paid += 1
+    @payee.amount_paid -= 1
     @payee.last_action = "Paid the pot!"
     @payee.save
     

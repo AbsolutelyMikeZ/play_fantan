@@ -15,11 +15,18 @@ class DealNewGame
     end
     
     #find hand where game = game and card = 7 diamonds and set it's viable_play to true
-    seven_diamonds = Hand.joins(:card).joins(:lineup).where("cards.abbreviation = '7d'").where("lineups.game_id = #{@game.id}")
-    seven_diamonds[0].update_attributes(:viable_play => true)
+    seven_diamonds = Hand.joins(:card).joins(:lineup).where("cards.abbreviation = '7d'").where("lineups.game_id = #{@game.id}").first
+    seven_diamonds.update_attributes(:viable_play => true)
     
     #set initial turn to player with the 7 of diamonds
-    first_to_play = seven_diamonds[0].lineup.seat_number
+    first_to_play = seven_diamonds.lineup.seat_number
     @game.update_attributes(:turn => first_to_play)
+    
+    # If player with 7d is a bot, get the game started
+    if seven_diamonds.lineup.player.human == false
+      PlayBotTurn.new(@game.id).play_turn
+    end
+    
   end
+  
 end

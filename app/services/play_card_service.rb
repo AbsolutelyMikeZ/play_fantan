@@ -20,7 +20,7 @@ class PlayCardService
       cards_left = Hand.where("lineup_id = #{@lineup.id}")
       if cards_left.empty?
         total_pot = Lineup.where("game_id = #{@game_id}").sum(:amount_paid)
-        profit = @lineup.amount_paid - total_pot
+        profit = -(total_pot - @lineup.amount_paid)
         @lineup.update_attributes(:amount_paid => profit, :won_pot => true)
         @game.update_attributes(:turn => 0, :completed => true)
       else

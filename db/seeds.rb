@@ -18,3 +18,11 @@ suits.each do |s|
     Card.create!(suit: s, name: names[i], abbreviation: abbrev, rank: rank)
   end
 end
+
+
+robot_names = ["Bender", "KITT", "Johnny 5", "HAL 9000", "Wall-E", "R2D2"]
+
+robot_names.each do |r|
+  player = Player.new(first_name: "A.I.", last_name: "Robot", screen_name: r, human: false, email: r)
+  player.save(:validate => false)
+end

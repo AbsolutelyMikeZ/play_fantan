@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_player, only: [:new, :create]
 
   # GET /games
   # GET /games.json
@@ -29,7 +30,8 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
         # Create lineups for the Players in the Game
-        players = Player.first(4)
+        players = Player.first(@game.num_players - 1)
+        players << current_player
         players.each_with_index do |player, i|
           lineup = Lineup.create(:game_id => @game.id, :player_id => player.id, :seat_number => i + 1)
         end
@@ -99,4 +101,13 @@ class GamesController < ApplicationController
     def game_params
       params.require(:game).permit(:turn, :num_players, :completed)
     end
+    
+    def logged_in_player
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in or create an account to start a game."
+        redirect_to login_url
+      end
+    end
+    
 end

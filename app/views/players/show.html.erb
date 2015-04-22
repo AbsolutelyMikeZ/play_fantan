@@ -30,12 +30,9 @@
   <%= @player.human %>
 </p>
 
+<% stats = Lineup.find_by_sql("SELECT COUNT(*) as games_played, SUM(won_pot) as wins, AVG(won_pot) as win_pct, SUM(amount_paid) as profit, AVG(amount_paid) as ppg FROM lineups WHERE player_id = #{@player.id}").first %>
 
-<% gp = @player.lineups.count %>
-<% gw = @player.lineups.where(won_pot: true).count %>
-<% pl = @player.lineups.sum("amount_paid") * -1 %>
-<% wpct = gw * 100 / gp %>
-<% plpg = pl * 1.0 / gp %>
+<% if stats.games_played > 0 %>
 <table>
 	<tr>
 		<th>Games Played</th>
@@ -44,12 +41,15 @@
 		<th>P/L per Game</th>
 	</tr>
 	<tr>
-		<td><%= gp %></td>
-		<td><%= gw %>&nbsp;(<%= number_to_percentage(wpct, precision: 1) %>)</td>
-		<td><%= pl %></td>
-		<td><%= number_with_precision(plpg, precision: 2) %></td>
+		<td><%= stats.games_played %></td>
+		<td><%= stats.wins %>&nbsp;(<%= number_to_percentage(stats.win_pct * 100, precision: 1) %>)</td>
+		<td><%= stats.profit %></td>
+		<td><%= number_with_precision(stats.ppg, precision: 2) %></td>
 	</tr>
 </table>
+<% else %>
+<p>No games played, yet.</p>
+<% end %>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

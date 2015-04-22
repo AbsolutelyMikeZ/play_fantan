@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416050213) do
+ActiveRecord::Schema.define(version: 20150420060532) do
 
   create_table "cards", force: :cascade do |t|
     t.string   "suit",         limit: 255
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(version: 20150416050213) do
   add_index "cards_games", ["game_id"], name: "index_cards_games_on_game_id", using: :btree
 
   create_table "games", force: :cascade do |t|
-    t.integer  "turn",        limit: 4
+    t.integer  "turn",        limit: 4, default: 1
     t.integer  "num_players", limit: 4
-    t.boolean  "completed",   limit: 1
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.boolean  "completed",   limit: 1, default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "dealer",      limit: 4, default: 1
   end
 
   create_table "hands", force: :cascade do |t|
@@ -65,14 +66,18 @@ ActiveRecord::Schema.define(version: 20150416050213) do
   add_index "lineups", ["player_id"], name: "index_lineups_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
-    t.string   "first_name",  limit: 255
-    t.string   "last_name",   limit: 255
-    t.string   "email",       limit: 255
-    t.string   "password",    limit: 255
-    t.string   "screen_name", limit: 255
-    t.boolean  "human",       limit: 1
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "first_name",      limit: 255
+    t.string   "last_name",       limit: 255
+    t.string   "email",           limit: 255
+    t.string   "password_digest", limit: 255
+    t.string   "screen_name",     limit: 255
+    t.boolean  "human",           limit: 1,   default: true
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "remember_digest", limit: 255
   end
+
+  add_index "players", ["email"], name: "index_players_on_email", unique: true, using: :btree
+  add_index "players", ["screen_name"], name: "index_players_on_screen_name", unique: true, using: :btree
 
 end

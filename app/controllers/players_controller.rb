@@ -1,10 +1,13 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_player, only: [:edit, :update, :destroy]
+  before_action :correct_player, only: [:edit, :update, :destroy]
 
   # GET /players
   # GET /players.json
   def index
     @players = Player.all
+    @stats = leaderboard(params[:sort].to_i, params[:order], params[:page].to_i)
   end
 
   # GET /players/1
@@ -28,6 +31,7 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.save
+        log_in @player
         format.html { redirect_to @player, notice: 'Player was successfully created.' }
         format.json { render :show, status: :created, location: @player }
       else
@@ -71,4 +75,42 @@ class PlayersController < ApplicationController
     def player_params
       params.require(:player).permit(:first_name, :last_name, :email, :password, :screen_name, :human)
     end
+    
+    def logged_in_player
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+    
+    def correct_player
+      redirect_to(players_url) unless current_player?(set_player)
+    end
+    
+    def leaderboard(sort_col, sort_order, page)
+      sql = "SELECT players.screen_name, COUNT(*) as games_played, SUM(lineups.won_pot) as wins, AVG(lineups.won_pot) as win_pct, 
+             SUM(lineups.amount_paid) as profit, AVG(lineups.amount_paid) as ppg FROM lineups JOIN players on players.id = lineups.player_id GROUP BY lineups.player_id"
+      cols = %w[players.screen_name games_played wins profit ppg]
+      if sort_col > 0
+        sql += " ORDER BY " + cols[sort_col - 1]
+        if sort_order == "asc"
+          sql += " ASC"
+        elsif sort_order == "desc"
+          sql += " DESC"
+        end
+      else
+        sql += " ORDER BY ppg DESC"
+      end
+      
+      if page > 0
+        offset = (page - 1) * 20
+        sql += " LIMIT #{offset}, 20"
+      else
+        sql += " LIMIT 0, 20"
+      end
+      
+      Lineup.find_by_sql(sql)
+    end
+    
 end
