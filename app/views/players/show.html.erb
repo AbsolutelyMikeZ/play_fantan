@@ -21,7 +21,7 @@
   <br /><%= link_to 'Edit', edit_player_path(@player), class: "green btn" %><br /><br />
 <% end %>
 
-<% stats = Lineup.find_by_sql("SELECT COUNT(*) as games_played, SUM(won_pot) as wins, AVG(won_pot) as win_pct, SUM(amount_paid) as profit, AVG(amount_paid) as ppg FROM lineups WHERE player_id = #{@player.id}").first %>
+<% stats = Lineup.find_by_sql("SELECT COUNT(*) as games_played, SUM(won_pot::int) as wins, AVG(won_pot::int) as win_pct, SUM(amount_paid) as profit, AVG(amount_paid) as ppg FROM lineups WHERE player_id = #{@player.id}").first %>
 
 <% if stats.games_played > 0 %>
 <table>
@@ -42,6 +42,6 @@
 <p>No games played, yet.</p>
 <% end %>
 
-<% if Game.joins(:players).where("players.id = @player.id").where("games.completed = false").present? %>
+<% if Game.joins(:players).where("players.id = #{@player.id}").where("games.completed = false").present? %>
   <p>You have unfinished games!  <%= link_to("Play now!", games_path) %></p>
 <% end %>

@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150420060532) do
   create_table "games", force: :cascade do |t|
     t.integer  "turn",        limit: 4, default: 1
     t.integer  "num_players", limit: 4
-    t.boolean  "completed",   limit: 1, default: false
+    t.boolean  "completed",   default: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "dealer",      limit: 4, default: 1
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150420060532) do
   create_table "hands", force: :cascade do |t|
     t.integer  "lineup_id",   limit: 4
     t.integer  "card_id",     limit: 4
-    t.boolean  "viable_play", limit: 1, default: false
+    t.boolean  "viable_play", default: false
     t.integer  "ai_rank",     limit: 4
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150420060532) do
     t.integer  "player_id",   limit: 4
     t.integer  "seat_number", limit: 4
     t.integer  "amount_paid", limit: 4,   default: 0
-    t.boolean  "won_pot",     limit: 1,   default: false
+    t.boolean  "won_pot",     default: false
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "last_action", limit: 255, default: "Nothing yet"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150420060532) do
     t.string   "email",           limit: 255
     t.string   "password_digest", limit: 255
     t.string   "screen_name",     limit: 255
-    t.boolean  "human",           limit: 1,   default: true
+    t.boolean  "human",           default: true
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "remember_digest", limit: 255

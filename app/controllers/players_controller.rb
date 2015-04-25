@@ -89,8 +89,8 @@ class PlayersController < ApplicationController
     end
     
     def leaderboard(sort_col, sort_order, page)
-      sql = "SELECT players.screen_name, COUNT(*) as games_played, SUM(lineups.won_pot) as wins, AVG(lineups.won_pot) as win_pct, 
-             SUM(lineups.amount_paid) as profit, AVG(lineups.amount_paid) as ppg FROM lineups JOIN players on players.id = lineups.player_id GROUP BY lineups.player_id"
+      sql = "SELECT players.screen_name, COUNT(*) as games_played, SUM(lineups.won_pot::int) as wins, AVG(lineups.won_pot::int) as win_pct, 
+             SUM(lineups.amount_paid) as profit, AVG(lineups.amount_paid) as ppg FROM lineups INNER JOIN players ON lineups.player_id = players.id GROUP BY players.screen_name"
       cols = %w[players.screen_name games_played wins profit ppg]
       if sort_col > 0
         sql += " ORDER BY " + cols[sort_col - 1]
@@ -105,9 +105,9 @@ class PlayersController < ApplicationController
       
       if page > 0
         offset = (page - 1) * 20
-        sql += " LIMIT #{offset}, 20"
+        sql += " LIMIT 20 OFFSET #{offset}"
       else
-        sql += " LIMIT 0, 20"
+        sql += " LIMIT 20 OFFSET 0"
       end
       
       Lineup.find_by_sql(sql)
