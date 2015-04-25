@@ -1,102 +1,77 @@
-<p id="notice"><%= notice %></p>
+<div id="board">
+	<% board = @game.cards %>
+	<table>
+		<tr>
+		  <% (1..52).each do |i| %>
+		    <td>
+			<% if card = board.select { |card| card.id == i }.first %>
+			  <%= image_tag("#{card.abbreviation}.png", class: "board_card") %>
+			<% else %>
+			  <%= image_tag("blank.png", class: "blank_card") %>
+			<% end %>
+		    </td>
+		    <% if i % 13 == 0 && i < 50 %>
+		      </tr><tr>
+		    <% end %>
+		  <% end %>
+		</tr>
+	</table>
+	
+</div>
 
-<p>
-  <strong>Turn:</strong>
-  <%= @game.turn %>
-</p>
 
-<p>
-  <strong>Num players:</strong>
-  <%= @game.num_players %>
-</p>
-
-<p>
-	<strong>Cards on the board</strong><br />
-	<% board = @game.cards.arranged %>
-	Clubs: 
-	<% board.each do |board| %>
-	  <% if board.suit == "Clubs" %>
-	    <%= board.abbreviation %>&nbsp;
+<div id="player_hand">
+	<% human_player = @game.players.select { |x| x.human == true }.first %>
+	<% human_lineup = @game.lineups.select { |x| x.player_id == human_player.id }.first %>
+	<% plays = human_lineup.hands.where("viable_play = true").count %>
+	<h1 class="h1_inline"><%= human_player.screen_name %>'s Hand</h1>
+	<%= form_for human_lineup, url: {controller: 'games', action: "pay_pot", :lineup_id => human_lineup.id} do |f| %>
+	  <% if plays == 0 && @game.completed == false %>
+	    <%= f.submit "Pay the Pot", class: "green btn" %>
+      <% else %>
+		<%= f.submit "Pay the Pot", class: "green btn disabled_button", disabled: true %>
+	  <% end %>
+    <% end %>
+	<h1 class="h1_inline">Paid the pot: <%= -human_lineup.amount_paid %></h1>
+	<br /><br />
+	<% human_lineup.hands.arranged.each do |h| %>
+	  <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
+		<% if h.viable_play && human_lineup.seat_number == @game.turn %>
+		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card_valid" %>
+		<% else %>
+		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card", :disabled => true %>
+		<% end %>
 	  <% end %>
 	<% end %>
-	<br />
-	Diamonds: 
-	<% board.each do |board| %>
-	  <% if board.suit == "Diamonds" %>
-	    <%= board.abbreviation %>&nbsp;
-	  <% end %>
-	<% end %>
-	<br />
-	Hearts: 
-	<% board.each do |board| %>
-	  <% if board.suit == "Hearts" %>
-	    <%= board.abbreviation %>&nbsp;
-	  <% end %>
-	<% end %>
-	<br />
-	Spades: 
-	<% board.each do |board| %>
-	  <% if board.suit == "Spades" %>
-	    <%= board.abbreviation %>&nbsp;
-	  <% end %>
-	<% end %>
-	<br />
-</p>
+	
+	
+</div>
 
-<p>
-	<strong>Who's in the game:</strong><br />
+<div id="robots">
+	<h3>Robots</h3>
 	<table>
 		<tr>
 			<th>Screen Name</th>
-			<th>Hand</th>
+			<th># Cards</th>
 			<th>Paid Pot</th>
-			<th>Pay</th>
 			<th>Last Action</th>
 		</tr>
-	<% @game.lineups.each do |l| %>
-	  <% viable_card_counter = 0 %>
-		<tr>
-			<td><%= l.player.screen_name %></td>
-			<td><% if l.player.human %>
-				  <% l.hands.arranged.each do |h| %>
-				    <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
-				      <% if h.viable_play && l.seat_number == @game.turn %>
-				        <%= f.submit "#{h.card.abbreviation}" %>&nbsp;
-				        <% viable_card_counter += 1 %>
-				      <% else %>
-				        <%= f.submit "#{h.card.abbreviation}", disabled: true %>&nbsp;
-				      <% end %>
-				    <% end %>
-				  <% end %>
-				<% else %>
-				  Cards Left: <%= l.hands.count %>
-				<% end %>
-			</td>
-			<td><%= -l.amount_paid %></td>
-			<td><% if l.player.human %>
-				  <%= form_for l, url: {controller: 'games', action: "pay_pot", :lineup_id => l.id} do |f| %>
-				    <% if viable_card_counter == 0 && l.seat_number == @game.turn %>
-				      <%= f.submit "Pay the Pot" %>
-				    <% else %>
-				      <%= f.submit "Pay the Pot", disabled: true %>
-				    <% end %>
-				  <% end %>
-				<% elsif l.seat_number == @game.turn %>
-				  <%= form_for l, url: {controller: 'games', action: "play_for_bot"} do |f| %>
-				    <%= f.submit "Play Robot" %>
-				  <% end %>
-				<% end %>
-			</td>
-			<td><%= l.last_action %></td>
-		</tr>
-	<% end %>
+		<% @game.lineups.each_with_index do |l, i| %>
+		  <% if l.player.human == false %>
+		    <tr <%= i % 2 == 0 ? "class=odd" : "class=even" %>>
+		      <td><%= l.player.screen_name %></td>
+		      <td><%= l.hands.count %></td>
+		      <td><%= -l.amount_paid %></td>
+		      <td><%= l.last_action %></td>	
+		    </tr>
+		  <% end %>
+		<% end %>
 	</table>
-</p>
+</div>
 
-<p>
-  <strong>Completed:</strong>
-  <%= @game.completed %>
-</p>
+<div>
+	<% if @game.completed %>
+      <div><%= link_to "Start another!", new_game_path, class: "green btn" %></div>
+    <% end %>
+</div>
 
-
-<%= link_to 'New Game', new_game_path %>

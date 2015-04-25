@@ -21,9 +21,229 @@ form.edit_hand {
 .debug_dump {
 	clear: both;
 	float: left;
-	width: 100%;
+	width: 50%;
 	margin-top: 45px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+}
+
+
+/* GENERAL SITE */
+
+h1 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.h1_inline {
+	display:inline;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+h2 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+table {
+	border: solid 2px #67809F;
+	margin: 0px;
+	padding: 0px;
+	border-collapse: collapse;
+}
+
+th {
+	background-color: #67809F;
+	margin: 5px;
+	padding: 5px;
+	color: #FFFFFF;
+}
+
+th a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+th a:hover, a:active {
+	color: #FDE3A7;
+	background-color: #67809F;
+}
+
+tr.odd {
+	background-color: #FFFFFF;
+}
+
+tr.even {
+	background-color: #EEEEEE;
+}
+
+td {
+	padding: 5px;
+	margin: 5px;
+	text-align: center;
+}
+
+td.left {
+	text-align: left;
+}
+
+/* BUTTONS and the like */
+
+.btn {
+	margin: 5px;
+	padding: 10px 15px 10px 15px;
+	border-radius: 5px;
+	font-size: 1.2em;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.red {
+	background: #E26A6A;
+	color: #FFFFFF;
+}
+
+.red:hover, .red:active {
+	background: #CO392B;
+	color: #000000;
+}
+
+.green {
+	background: #26A65B;
+	color: #FFFFFF;
+}
+
+.green:hover, .green:active {
+	background: #1E824C;
+	color: #FDE3A7;
+}
+
+.disabled_button {
+	opacity: 0.5;
+}
+
+/* BODY */
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #D2D7D3;
+}
+
+
+/* IMAGES  */
+
+.board_card {
+	width: 50px;
+	height: auto;
+}
+
+.blank_card {
+	width: 48px;
+	height: auto;
+	border: 1px solid #67809F;
+}
+
+.hand_card {
+	width: 70px;
+	height: auto;
+	opacity: 0.7;
+	padding: 2px;
+}
+
+.hand_card_valid {
+	width: 70px;
+	height: auto;
+	border: 2px solid #FDE3A7;
+}
+
+.home_image {
+	width: 150px;
+	height: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: inline;
+	float:left;
+}
+
+/* LAYOUT
+
+#container {
+	max-width: 1024px;
+	margin: 0 auto;
+} */
+
+#content {
+	width: 100%
+	padding-left: 20px;
+	margin-left: 20px;
+}
+
+#robots {
+	margin: 20px;
+}
+
+#board {
+	margin: 20px;
+}
+
+#player_hand {
+	clear:both;
+	margin: 20px;
+}
+
+#home_right {
+	display:inline;
+	float:left;
+	margin: 20px;
+}
+
+#rules {
+	clear:both;
+	margin-top: 40px;
+}
+
+.edit_lineup {
+	display:inline;
+}
+
+/* NAVIGATION BAR */
+
+nav {
+	background-color: #26A65B;
+	color: #000000;
+	width: 100%;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+nav li {
+	float: left;
+}
+
+nav ul li a:link, a:visited {
+	display: block;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #26A65B;
+	text-align: center;
+	padding: 20px;
+	text-decoration: none;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+}
+
+nav ul li a:hover, a:active {
+	background-color: #1E824C;
 }

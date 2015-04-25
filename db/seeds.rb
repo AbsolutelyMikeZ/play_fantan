@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+suits = ["Clubs", "Diamonds", "Spades", "Hearts"]
 names = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
 abbreviations = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
@@ -20,7 +20,7 @@ suits.each do |s|
 end
 
 
-robot_names = ["Bender", "KITT", "Johnny 5", "HAL 9000", "Wall-E", "R2D2"]
+robot_names = ["Bender", "KITT", "Johnny 5", "HAL 9000", "Wall-E", "R2-D2", "T-1000"]
 
 robot_names.each do |r|
   player = Player.new(first_name: "A.I.", last_name: "Robot", screen_name: r, human: false, email: r)

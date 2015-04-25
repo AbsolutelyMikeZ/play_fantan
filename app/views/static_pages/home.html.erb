@@ -1,0 +1,25 @@
+<%= image_tag("7d.png", class: "home_image") %>
+
+<div id="home_right">
+<h1>Play FanTan!</h1>
+<br />
+<h2>Play this fast and fun card game against 2 to 6 computers players</h2>
+<br /><br />
+<% if logged_in? %>
+  <%= link_to("Start a Game!", new_game_path, class: "btn red") %>
+<% else %>
+  <%= link_to("Log In", login_path, class: "btn red") %>
+  or
+  <%= link_to("Sign Up to Play!", new_player_path, class: "btn red") %>
+<% end %>
+</div>
+
+<div id="rules">
+	<h1>Rules of FanTan</h1>
+	<p>The entire deck of cards is dealt out to the players.</p>
+	<p>The object of the game is to be the first player to play all of your cards, at which time you win the pot.</p>
+	<p>The player with the 7 of Diamonds plays first, placing it on the board to open the game.</p>
+	<p>Sevens open the play for each suit.  Once the 7 is played, sequential cards can be played on either side, building down to Ace and up to King.</p>
+	<p>Players must play a card if they have a valid sequential play, or must pay the pot 1 point if they have no valid play.</p>
+	<p>Example: the 2nd player must play the 6 or 8 of Diamonds, or the 7 of Clubs, Spades, or Hearts, or else be forced to pay the pot.</p>
+</div>

@@ -7,8 +7,8 @@ class DealNewGame
     @deck = Card.all
     @deck = @deck.shuffle
     
-    i = 0
     i_max = @game.num_players - 1
+    i = rand(0..i_max)
     @deck.each do |d|
       hand = Hand.create(:lineup_id => @game.lineups[i].id, :card_id => d.id)
       i == i_max ? i = 0 : i += 1

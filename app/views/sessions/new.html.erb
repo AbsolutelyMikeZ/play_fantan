@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Login</h1>
+<h1>Log In</h1>
 
 <%= form_for(:session, url: login_path) do |f| %>
   <div class="field">
@@ -16,7 +16,7 @@
   	<%= f.label :remember_me %><span> on this computer</span>
  </div>
   <div class="actions">
-  	<%= f.submit "Log In" %>
+  	<%= f.submit "Log In", class: "green btn" %>
   </div>
 <% end %>
 

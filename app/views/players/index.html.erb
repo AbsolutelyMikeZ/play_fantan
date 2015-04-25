@@ -1,9 +1,9 @@
-<h1>Listing Players</h1>
+<h1>Leaderboard</h1>
 
 <table>
   <thead>
     <tr>
-      <% headers = ["Screen Name", "Games Played", "Games Won (%)", "Profit/Loss", "P/L per Game"] %>
+      <% headers = ["Screen Name", "Games Played", "Won (%)", "Profit", "Profit/Game"] %>
       <% headers.each_with_index do |header, i| %>
       <% direction = (i + 1) == params[:sort].to_i && params[:order] == "desc" ? "asc" : "desc" %>	
       <th><%= link_to header, :sort => i + 1, :order => direction %></th>
@@ -13,9 +13,9 @@
   
 
   <tbody>
-    <% @stats.each do |player| %>
-      <tr>
-        <td><%= player.screen_name %></td>
+    <% @stats.each_with_index do |player, i| %>
+      <tr <%= i % 2 == 0 ? "class=odd" : "class=even" %>>
+        <td class="left"><%= player.screen_name %></td>
         <td><%= player.games_played %></td>
 		<td><%= player.wins %>&nbsp;(<%= number_to_percentage(player.win_pct * 100, precision: 1) %>)</td>
 		<td><%= player.profit %></td>

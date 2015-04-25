@@ -30,7 +30,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
         # Create lineups for the Players in the Game
-        players = Player.first(@game.num_players - 1)
+        players = Player.where("human = false").sample(@game.num_players - 1)
         players << current_player
         players.each_with_index do |player, i|
           lineup = Lineup.create(:game_id => @game.id, :player_id => player.id, :seat_number => i + 1)
