@@ -12,7 +12,7 @@ class PlayCardService
     
     if @hand.viable_play
       @game.cards << @hand.card  # add card to the board
-      @lineup.update_attributes(:last_action => "Played the #{@hand.card.abbreviation}")
+      @lineup.update_attributes(:last_action => "#{@hand.card.abbreviation}")
       viable = UpdateViablePlays.new(@game_id, @hand.card.suit, @hand.card.rank).update_viable  # update viable plays
       @hand.destroy  # remove hand (remove card from the player's hand)
       

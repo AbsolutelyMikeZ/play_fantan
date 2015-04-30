@@ -1,3 +1,36 @@
+<% if @game.completed %>
+  <div id="winner">
+  	<% winner = Lineup.where("game_id = #{@game.id}").where("won_pot = true").first %>
+  	<h2><%= winner.player.screen_name %> won the hand and <%= winner.amount_paid %> points!</h2>
+  	<%= link_to "Start another!", new_game_path, class: "green btn" %>
+  </div>
+<% end %>
+
+<div id="player_hand">
+	<% human_player = @game.players.select { |x| x.human == true }.first %>
+	<% human_lineup = @game.lineups.select { |x| x.player_id == human_player.id }.first %>
+	<% plays = human_lineup.hands.where("viable_play = true").count %>
+	<h2>My Hand</h2>
+	<% human_lineup.hands.arranged.each do |h| %>
+	  <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
+		<% if h.viable_play && human_lineup.seat_number == @game.turn %>
+		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card_valid" %>
+		<% else %>
+		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card", :disabled => true %>
+		<% end %>
+	  <% end %>
+	<% end %>
+	<br />
+	<%= form_for human_lineup, url: {controller: 'games', action: "pay_pot", :lineup_id => human_lineup.id} do |f| %>
+	  <% if plays == 0 && @game.completed == false %>
+	    <%= f.submit "Pay the Pot", class: "green btn" %>
+      <% else %>
+		<%= f.submit "Pay the Pot", class: "green btn disabled_button", disabled: true %>
+	  <% end %>
+    <% end %>
+	<h1 class="h1_inline">Paid the pot: <%= -human_lineup.amount_paid %></h1>
+</div>
+
 <div id="board">
 	<% board = @game.cards %>
 	<table>
@@ -20,58 +53,33 @@
 </div>
 
 
-<div id="player_hand">
-	<% human_player = @game.players.select { |x| x.human == true }.first %>
-	<% human_lineup = @game.lineups.select { |x| x.player_id == human_player.id }.first %>
-	<% plays = human_lineup.hands.where("viable_play = true").count %>
-	<h1 class="h1_inline"><%= human_player.screen_name %>'s Hand</h1>
-	<%= form_for human_lineup, url: {controller: 'games', action: "pay_pot", :lineup_id => human_lineup.id} do |f| %>
-	  <% if plays == 0 && @game.completed == false %>
-	    <%= f.submit "Pay the Pot", class: "green btn" %>
-      <% else %>
-		<%= f.submit "Pay the Pot", class: "green btn disabled_button", disabled: true %>
-	  <% end %>
-    <% end %>
-	<h1 class="h1_inline">Paid the pot: <%= -human_lineup.amount_paid %></h1>
-	<br /><br />
-	<% human_lineup.hands.arranged.each do |h| %>
-	  <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
-		<% if h.viable_play && human_lineup.seat_number == @game.turn %>
-		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card_valid" %>
-		<% else %>
-		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card", :disabled => true %>
-		<% end %>
-	  <% end %>
-	<% end %>
-	
-	
-</div>
-
 <div id="robots">
-	<h3>Robots</h3>
+	<h3>Players</h3>
 	<table>
 		<tr>
+			<th>Seat #</th>
 			<th>Screen Name</th>
 			<th># Cards</th>
 			<th>Paid Pot</th>
 			<th>Last Action</th>
 		</tr>
-		<% @game.lineups.each_with_index do |l, i| %>
-		  <% if l.player.human == false %>
-		    <tr <%= i % 2 == 0 ? "class=odd" : "class=even" %>>
+		<% Lineup.where("game_id = #{@game.id}").seated.each do |l| %>
+		    <tr <%= l.seat_number % 2 == 0 ? "class=odd" : "class=even" %>>
+		      <td><%= l.seat_number %></td>	
 		      <td><%= l.player.screen_name %></td>
 		      <td><%= l.hands.count %></td>
 		      <td><%= -l.amount_paid %></td>
-		      <td><%= l.last_action %></td>	
+		      <td style="margin: 1px; padding: 1px;">
+		      	<% if l.last_action.size < 4 %>
+		      	  <%= image_tag("#{l.last_action}.png", class: "last_played") %>
+		      	<% else %>
+		      	  <%= l.last_action %>
+		      	<% end %>
+		      </td>	
 		    </tr>
-		  <% end %>
 		<% end %>
 	</table>
 </div>
 
-<div>
-	<% if @game.completed %>
-      <div><%= link_to "Start another!", new_game_path, class: "green btn" %></div>
-    <% end %>
-</div>
+
 

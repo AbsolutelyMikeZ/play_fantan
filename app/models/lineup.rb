@@ -5,4 +5,5 @@ class Lineup < ActiveRecord::Base
   has_many :hands, dependent: :destroy
   has_many :cards, :through => :hands
   
+  scope :seated, -> { order(:seat_number) }
 end

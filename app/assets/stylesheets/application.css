@@ -172,6 +172,11 @@ body {
 	float:left;
 }
 
+.last_played {
+	width: 40px;
+	height: auto;
+}
+
 /* LAYOUT
 
 #container {
