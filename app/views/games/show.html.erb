@@ -33,10 +33,10 @@
 
 <div id="board">
 	<% board = @game.cards %>
-	<table>
+	<table class="board">
 		<tr>
 		  <% (1..52).each do |i| %>
-		    <td>
+		    <td class="board">
 			<% if card = board.select { |card| card.id == i }.first %>
 			  <%= image_tag("#{card.abbreviation}.png", class: "board_card") %>
 			<% else %>

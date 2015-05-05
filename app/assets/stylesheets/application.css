@@ -177,6 +177,13 @@ body {
 	height: auto;
 }
 
+
+
+
+
+
+
+
 /* LAYOUT
 
 #container {
@@ -192,10 +199,14 @@ body {
 
 #robots {
 	margin: 20px;
+	display: inline;
+	float: left;
 }
 
 #board {
 	margin: 20px;
+	display: inline;
+	float: left;
 }
 
 #player_hand {
@@ -235,6 +246,7 @@ nav ul {
 
 nav li {
 	float: left;
+	display: inline;
 }
 
 nav ul li a:link, a:visited {
@@ -251,4 +263,83 @@ nav ul li a:link, a:visited {
 
 nav ul li a:hover, a:active {
 	background-color: #1E824C;
+}  
+
+
+@media(max-width: 900px) {
+	
+	.board_card {
+		width: 40px;
+		height: auto;
+	}
+
+	.blank_card {
+		width: 38px;
+		height: auto;
+		border: 1px solid #67809F;
+	}
+	
+	.hand_card {
+		width: 60px;
+		height: auto;
+		opacity: 0.7;
+		padding: 2px;
+	}
+
+	.hand_card_valid {
+		width: 60px;
+		height: auto;
+		border: 2px solid #FDE3A7;
+	}
+	
+	td.board {
+		padding: 2px;
+		margin: 2px;
+	}
+	
+	nav ul li a:link, a:visited {
+		padding: 10px;
+		font-size: 1.2em;
+	}
+
+
+
+}
+
+@media(max-width: 650px) {
+	
+	.board_card {
+		width: 30px;
+		height: auto;
+	}
+
+	.blank_card {
+		width: 28px;
+		height: auto;
+		border: 1px solid #67809F;
+	}
+	
+	.hand_card {
+		width: 50px;
+		height: auto;
+		opacity: 0.7;
+		padding: 2px;
+	}
+
+	.hand_card_valid {
+		width: 50px;
+		height: auto;
+		border: 2px solid #FDE3A7;
+	}
+	
+	td.board {
+		padding: 1px;
+		margin: 1px;
+	}
+	
+	nav ul li a:link, a:visited {
+		padding: 5px;
+		font-size: 1.0em;
+	}
+	
 }
