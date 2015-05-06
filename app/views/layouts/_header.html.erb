@@ -1,14 +1,14 @@
-<nav class="nav-collapse">
-	<ul>
-		<li><%= link_to "PlayFanTan", root_path %></li>
-		<li><%= link_to "Leaderboard", players_path %></li>
-		<li><%= link_to "New Game", new_game_path %></li>
+<nav class="nav">
+	<ul class="nav-list">
+		<li class="nav-item"><%= link_to "PlayFanTan", root_path %></li>
+		<li class="nav-item"><%= link_to "Leaderboard", players_path %></li>
+		<li class="nav-item"><%= link_to "New Game", new_game_path %></li>
 		<% if logged_in? %>
-		  <li><%= link_to "#{@current_player.screen_name}'s Profile", current_player %></li>
-		  <li><%= link_to "Log out", logout_path, method: :delete %></li>
+		  <li class="nav-item"><%= link_to "#{@current_player.screen_name}'s Profile", current_player %></li>
+		  <li class="nav-item"><%= link_to "Log out", logout_path, method: :delete %></li>
 		<% else %>
-		  <li><%= link_to "Log in", login_path %></li>
-		  <li><%= link_to "Create Account", new_player_path %></li>
+		  <li class="nav-item"><%= link_to "Log in", login_path %></li>
+		  <li class="nav-item"><%= link_to "Create Account", new_player_path %></li>
 		<% end %>
 	</ul>
 </nav>

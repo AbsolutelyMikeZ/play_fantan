@@ -11,52 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420060532) do
+ActiveRecord::Schema.define(version: 20150506053750) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "edbspl"
+  enable_extension "plpgsql"
+  enable_extension "edb_dblink_libpq"
+  enable_extension "edb_dblink_oci"
+  enable_extension "pldbgapi"
 
   create_table "cards", force: :cascade do |t|
     t.string   "suit",         limit: 255
     t.string   "name",         limit: 255
     t.string   "abbreviation", limit: 255
-    t.integer  "rank",         limit: 4
+    t.integer  "rank"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
   create_table "cards_games", id: false, force: :cascade do |t|
-    t.integer "card_id", limit: 4
-    t.integer "game_id", limit: 4
+    t.integer "card_id"
+    t.integer "game_id"
   end
 
   add_index "cards_games", ["card_id"], name: "index_cards_games_on_card_id", using: :btree
   add_index "cards_games", ["game_id"], name: "index_cards_games_on_game_id", using: :btree
 
   create_table "games", force: :cascade do |t|
-    t.integer  "turn",        limit: 4, default: 1
-    t.integer  "num_players", limit: 4
+    t.integer  "turn",        default: 1
+    t.integer  "num_players"
     t.boolean  "completed",   default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "dealer",      limit: 4, default: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "dealer",      default: 1
   end
 
   create_table "hands", force: :cascade do |t|
-    t.integer  "lineup_id",   limit: 4
-    t.integer  "card_id",     limit: 4
+    t.integer  "lineup_id"
+    t.integer  "card_id"
     t.boolean  "viable_play", default: false
-    t.integer  "ai_rank",     limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "ai_rank"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "hands", ["card_id"], name: "index_hands_on_card_id", using: :btree
   add_index "hands", ["lineup_id"], name: "index_hands_on_lineup_id", using: :btree
 
   create_table "lineups", force: :cascade do |t|
-    t.integer  "game_id",     limit: 4
-    t.integer  "player_id",   limit: 4
-    t.integer  "seat_number", limit: 4
-    t.integer  "amount_paid", limit: 4,   default: 0
-    t.boolean  "won_pot",     default: false
+    t.integer  "game_id"
+    t.integer  "player_id"
+    t.integer  "seat_number"
+    t.integer  "amount_paid",             default: 0
+    t.boolean  "won_pot",                 default: false
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "last_action", limit: 255, default: "Nothing yet"
@@ -71,10 +78,12 @@ ActiveRecord::Schema.define(version: 20150420060532) do
     t.string   "email",           limit: 255
     t.string   "password_digest", limit: 255
     t.string   "screen_name",     limit: 255
-    t.boolean  "human",           default: true
+    t.boolean  "human",                       default: true
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "remember_digest", limit: 255
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true, using: :btree
