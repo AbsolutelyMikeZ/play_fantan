@@ -92,6 +92,22 @@ td.left {
 	text-align: left;
 }
 
+/* FLASH */
+
+.flash {
+	padding: 10px;
+	margin: 10px;
+	display: block;
+	border: 1px solid;
+	width: 30%;
+}
+
+.notice {
+	border: #26A65B;
+	background: #FFFFFF;
+	color: #26A65B;
+}
+
 /* BUTTONS and the like */
 
 .btn {
@@ -102,6 +118,7 @@ td.left {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	text-decoration: none;
+	border: 0px;
 }
 
 .red {
@@ -128,6 +145,10 @@ td.left {
 	opacity: 0.5;
 }
 
+input {
+	-webkit-appearance:none;
+}
+
 /* BODY */
 
 body {
@@ -140,12 +161,12 @@ body {
 /* IMAGES  */
 
 .board_card {
-	width: 50px;
+	width: 55px;
 	height: auto;
 }
 
 .blank_card {
-	width: 48px;
+	width: 53px;
 	height: auto;
 	border: 1px solid #67809F;
 }
@@ -173,10 +194,14 @@ body {
 }
 
 .last_played {
-	width: 40px;
+	width: 45px;
 	height: auto;
 }
 
+td.board {
+		padding: 3px;
+		margin: 3px;
+	}
 
 
 
@@ -192,26 +217,26 @@ body {
 } */
 
 #content {
-	width: 100%
-	padding-left: 20px;
-	margin-left: 20px;
+	width: 100%;
+	padding-left: 10px;
+	margin-left: 10px;
 }
 
 #robots {
-	margin: 20px;
+	margin: 10px;
 	display: inline;
 	float: left;
 }
 
 #board {
-	margin: 20px;
+	margin: 10px;
 	display: inline;
 	float: left;
 }
 
 #player_hand {
 	clear:both;
-	margin: 20px;
+	margin: 10px;
 }
 
 #home_right {
@@ -305,9 +330,9 @@ body {
 	}
 	
 	#content {
-		width: 100%
-		padding-left: 10px;
-		margin-left: 10px;
+		width: 100%;
+		padding-left: 8px;
+		margin-left: 8px;
 	}
 	
 	#robots {
@@ -364,9 +389,9 @@ body {
 	}
 	
 	#content {
-		width: 100%
-		padding-left: 5px;
-		margin-left: 5px;
+		width: 100%;
+		padding-left: 4px;
+		margin-left: 4px;
 	}
 	
 	#robots {
@@ -379,6 +404,63 @@ body {
 
 	#player_hand {
 		margin: 5px;
+	}
+
+	
+}
+
+@media(max-width: 450px) {
+	
+	.board_card {
+		width: 25px;
+		height: auto;
+	}
+
+	.blank_card {
+		width: 23px;
+		height: auto;
+		border: 1px solid #67809F;
+	}
+	
+	.hand_card {
+		width: 50px;
+		height: auto;
+		opacity: 0.7;
+		padding: 2px;
+	}
+
+	.hand_card_valid {
+		width: 50px;
+		height: auto;
+		border: 2px solid #FDE3A7;
+	}
+	
+	td.board {
+		padding: 1px;
+		margin: 1px;
+	}
+	
+	.nav-item a:link, a:visited {
+		padding: 5px;
+		font-size: 1.0em;
+	}
+	
+	#content {
+		width: 100%;
+		padding-left: 2px;
+		margin-left: 2px;
+	}
+	
+	#robots {
+		margin: 3px;
+	}
+
+	#board {
+		margin: 3px;
+	}
+
+	#player_hand {
+		margin: 3px;
 	}
 
 	

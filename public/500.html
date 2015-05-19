@@ -1,66 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>I'm sorry this isn't working out (500)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
 
-  div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
+h1 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
 
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #D2D7D3;
+}
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+.btn {
+	margin: 5px;
+	padding: 10px 15px 10px 15px;
+	border-radius: 5px;
+	font-size: 1.2em;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+}
 
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+.green {
+	background: #26A65B;
+	color: #FFFFFF;
+}
+
+.green:hover, .green:active {
+	background: #1E824C;
+	color: #FDE3A7;
+}
+
+.content {
+	width: 100%;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+
   </style>
 </head>
 
 <body>
   <!-- This file lives in public/500.html -->
-  <div class="dialog">
+  <div class="content">
     <div>
-      <h1>We're sorry, but something went wrong.</h1>
+      <h1>Are we breaking up?</h1>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <p>Something isn't right between us.  It's not you, it's me.  I promise to work on resolving my issues.  Let's try it again:</p>
+    <p><a href="http://fantan.herokuapp.com" class="btn green">Home</a><a href="http://fantan.herokuapp.com/games" class="btn green">Resume Game</a></p>
+    <p>The FanTan site experienced an error.  Try returning to the home page or resuming your game.</p>
   </div>
 </body>
 </html>
