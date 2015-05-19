@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Rank</th>
       <% headers = ["Screen Name", "Games Played", "Won (%)", "Profit", "Profit/Game"] %>
       <% headers.each_with_index do |header, i| %>
       <% direction = (i + 1) == params[:sort].to_i && params[:order] == "desc" ? "asc" : "desc" %>	
@@ -15,6 +16,7 @@
   <tbody>
     <% @stats.each_with_index do |player, i| %>
       <tr <%= i % 2 == 0 ? "class=odd" : "class=even" %>>
+      	<td><%= i + 1 %></td>
         <td class="left"><%= player.screen_name %></td>
         <td><%= player.games_played %></td>
 		<td><%= player.wins %>&nbsp;(<%= number_to_percentage(player.win_pct * 100, precision: 1) %>)</td>

@@ -32,7 +32,7 @@ class PlayersController < ApplicationController
     respond_to do |format|
       if @player.save
         log_in @player
-        format.html { redirect_to @player, notice: 'Player was successfully created.' }
+        format.html { redirect_to @player, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to @player, notice: 'Player was successfully updated.' }
+        format.html { redirect_to @player, notice: 'Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @player }
       else
         format.html { render :edit }
@@ -60,7 +60,7 @@ class PlayersController < ApplicationController
   def destroy
     @player.destroy
     respond_to do |format|
-      format.html { redirect_to players_url, notice: 'Player was successfully destroyed.' }
+      format.html { redirect_to players_url, notice: 'Account was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

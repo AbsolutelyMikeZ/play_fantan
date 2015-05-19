@@ -39,7 +39,7 @@ class GamesController < ApplicationController
         # Deal the cards
         deal_em = DealNewGame.new(@game).deal
         
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
+        format.html { redirect_to @game, notice: 'Game on!  Good luck!' }
         format.json { render :show, status: :created, location: @game }
       else
         format.html { render :new }

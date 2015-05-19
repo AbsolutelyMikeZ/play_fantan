@@ -108,6 +108,12 @@ td.left {
 	color: #26A65B;
 }
 
+.danger {
+	border: #E26A6A;
+	background: #FFFFFF;
+	color: #B00100;
+}
+
 /* BUTTONS and the like */
 
 .btn {
@@ -147,6 +153,15 @@ td.left {
 
 input {
 	-webkit-appearance:none;
+}
+
+.number_players {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+input[type=radio] {
+	margin:8px;
 }
 
 /* BODY */

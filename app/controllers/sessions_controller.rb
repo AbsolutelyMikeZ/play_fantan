@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       params[:session][:remember_me] == '1' ? remember(player) : forget(player) 
       redirect_back_or player
     else
-      flash.now[:notice] = "Incorrect email/password combination"
+      flash.now[:danger] = "Incorrect email/password combination"
       render 'new'
     end
   end
