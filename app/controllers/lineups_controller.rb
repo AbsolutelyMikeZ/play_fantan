@@ -1,4 +1,0 @@
-class LineupsController < ApplicationController
-  
-
-end

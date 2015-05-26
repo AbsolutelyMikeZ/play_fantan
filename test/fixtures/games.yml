@@ -2,10 +2,10 @@
 
 one:
   turn: 1
-  num_players: 1
+  num_players: 3
   completed: false
 
 two:
   turn: 1
-  num_players: 1
+  num_players: 4
   completed: false

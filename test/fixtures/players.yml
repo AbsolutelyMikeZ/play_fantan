@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password: 
-  screen_name: MyString
-  human: false
-
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password: 
-  screen_name: MyString
+good1:
+  first_name: "Sidney"
+  last_name: "Crosby"
+  email: "sidthekid@penguins.com"
+  password_digest: "asdkfjweoihpriohasdklfj"
+  screen_name: "sidthekid"
+  human: true
+  
+good2:
+  first_name: Geno
+  last_name: Malkin
+  email: geno@penguins.com
+  password_digest: "23423509234r09"
+  screen_name: 71MVP
   human: false
