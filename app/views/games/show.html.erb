@@ -64,7 +64,7 @@
 			<th>Paid Pot</th>
 			<th>Last Action</th>
 		</tr>
-		<% Lineup.where("game_id = #{@game.id}").seated.each do |l| %>
+		<% @game.lineups.includes(:player).seated.each do |l| %>
 		    <tr <%= l.seat_number % 2 == 0 ? "class=odd" : "class=even" %>>
 		      <td><%= l.seat_number %></td>	
 		      <td><%= l.player.screen_name %></td>
