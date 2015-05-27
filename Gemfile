@@ -41,6 +41,18 @@ group :development, :test do
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  
+  gem 'guard'
+end
+
+group :test do
+  gem 'minitest-reporters', '~> 1.0.16'
+  gem 'mini_backtrace', '~> 0.1.3'
+  gem 'guard-minitest', '~> 2.4.4'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
