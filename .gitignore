@@ -11,4 +11,4 @@
 /log/*
 !/log/.keep
 /tmp
-/coverage/
+/coverage/config/initializers/secret_token.rbconfig/secrets.yml
