@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-good1:
+sid:
   first_name: "Sidney"
   last_name: "Crosby"
   email: "sidthekid@penguins.com"
@@ -8,7 +8,7 @@ good1:
   screen_name: "sidthekid"
   human: true
   
-good2:
+geno:
   first_name: Geno
   last_name: Malkin
   email: geno@penguins.com

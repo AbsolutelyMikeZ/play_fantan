@@ -5,13 +5,13 @@ class Player < ActiveRecord::Base
   has_many :lineups
   has_many :games, :through => :lineups
   
-  before_save {self.email = email.downcase }
+  before_save { email.downcase! }
   
   validates :first_name, presence: true, length: { maximum: 31 }
   validates :last_name, presence: true, length: { maximum: 31 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
   validates :screen_name, presence: true, length: { maximum: 31 }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }
   
   has_secure_password
   

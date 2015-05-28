@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  #resources :cards
   resources :password_resets, only: [:new, :create, :edit, :update]
     
   root 'static_pages#home'
