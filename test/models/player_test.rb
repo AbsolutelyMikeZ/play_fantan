@@ -55,5 +55,9 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal @player.email, "supermario@penguins.com" 
   end
   
+  test "authenticated? should return false for player with nil remember digest" do
+    assert_not @player.authenticated?('remember', '')
+  end
+  
   
 end

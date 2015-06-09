@@ -4,7 +4,7 @@ sid:
   first_name: "Sidney"
   last_name: "Crosby"
   email: "sidthekid@penguins.com"
-  password_digest: "asdkfjweoihpriohasdklfj"
+  password_digest: <%= Player.digest('password') %>
   screen_name: "sidthekid"
   human: true
   
@@ -12,6 +12,14 @@ geno:
   first_name: Geno
   last_name: Malkin
   email: geno@penguins.com
-  password_digest: "23423509234r09"
+  password_digest: <%= Player.digest('password') %>
   screen_name: 71MVP
+  human: false
+  
+bot2:
+  first_name: Bender
+  last_name: Robot
+  email: bender@bot.test
+  password_digest: <%= Player.digest('password') %>
+  screen_name: Bender
   human: false
