@@ -1,0 +1,42 @@
+<% @game = Game.first %>
+
+one:
+  game_id: <%= @game.id %>
+  card_id: 980190987
+  
+two:
+  game_id: <%= @game.id %>
+  card_id: 980190995
+  
+three:
+  game_id: <%= @game.id %>
+  card_id: 980191008
+  
+four:
+  game_id: <%= @game.id %>
+  card_id: 980191009
+  
+five:
+  game_id: <%= @game.id %>
+  card_id: 980190986
+  
+six:
+  game_id: <%= @game.id %>
+  card_id: 980190985
+  
+seven:
+  game_id: <%= @game.id %>
+  card_id: 980190997
+  
+eight:
+  game_id: <%= @game.id %>
+  card_id: 980190996
+  
+nine:
+  game_id: <%= @game.id %>
+  card_id: 980190984
+  
+ten:
+  game_id: <%= @game.id %>
+  card_id: 980190983
+  

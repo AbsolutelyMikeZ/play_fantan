@@ -1,11 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  turn: 1
-  num_players: 3
-  completed: false
-
-two:
-  turn: 1
+  turn: 4
   num_players: 4
   completed: false
+  dealer: 1

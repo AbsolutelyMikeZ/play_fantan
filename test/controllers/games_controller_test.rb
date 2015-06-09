@@ -27,6 +27,11 @@ class GamesControllerTest < ActionController::TestCase
     assert_redirected_to game_path(assigns(:game))
     assert_not flash.empty?
   end
+  
+  test "should show game" do
+    get :show, id: @game
+    assert_response :success
+  end
 
   test "should destroy game" do
     assert_difference('Game.count', -1) do

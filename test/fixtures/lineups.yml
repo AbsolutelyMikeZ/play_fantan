@@ -1,11 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  game: one
+  player: sid
+  seat_number: 4
+  amount_paid: 0
+  won_pot: false
+  last_action: '7h'
+  
+two:
+  game: one
+  player: geno
+  seat_number: 1
+  amount_paid: 0
+  won_pot: false
+  last_action: '6h'
+  
+three:
+  game: one
+  player: bot2
+  seat_number: 2
+  amount_paid: 0
+  won_pot: false
+  last_action: '6s'
+  
+four:
+  game: one
+  player: bot3
+  seat_number: 3
+  amount_paid: 0
+  won_pot: false
+  last_action: 'Jd'

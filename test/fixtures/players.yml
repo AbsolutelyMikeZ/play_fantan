@@ -23,3 +23,11 @@ bot2:
   password_digest: <%= Player.digest('password') %>
   screen_name: Bender
   human: false
+  
+bot3:
+  first_name: KITT
+  last_name: Robot
+  email: kitt@bot.test
+  password_digest: <%= Player.digest('password') %>
+  screen_name: KITT
+  human: false

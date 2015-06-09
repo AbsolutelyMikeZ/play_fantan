@@ -1,9 +1,214 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  viable_play: false
-  ai_rank: 1
+# Feels hackish to specify card_id but cards are seeded into the database once and not via a fixture file.
 
-two:
+
+one:
+  lineup: two
+  card_id: 980190975
   viable_play: false
-  ai_rank: 1
+  
+two:
+  lineup: two
+  card_id: 980191012
+  viable_play: false
+  
+three:
+  lineup: two
+  card_id: 980190976
+  viable_play: false
+  
+four:
+  lineup: two
+  card_id: 980190969
+  viable_play: false
+  
+five:
+  lineup: two
+  card_id: 980191015
+  viable_play: false
+  
+six:
+  lineup: two
+  card_id: 980191014
+  viable_play: false
+  
+seven:
+  lineup: two
+  card_id: 980190973
+  viable_play: false
+  
+eight:
+  lineup: two
+  card_id: 980190968
+  viable_play: false
+  
+nine:
+  lineup: two
+  card_id: 980190998
+  viable_play: true
+  
+ten:
+  lineup: two
+  card_id: 980190978
+  viable_play: false
+  
+eleven:
+  lineup: two
+  card_id: 980191004
+  viable_play: false
+  
+twelve:
+  lineup: three
+  card_id: 980190999
+  viable_play: false
+  
+thirteen:
+  lineup: three
+  card_id: 980190976
+  viable_play: false
+  
+fourteen:
+  lineup: three
+  card_id: 980191007
+  viable_play: true
+  
+fifteen:
+  lineup: three
+  card_id: 980190974
+  viable_play: false
+  
+sixteen:
+  lineup: three
+  card_id: 980190989
+  viable_play: false
+  
+seventeen:
+  lineup: three
+  card_id: 980190994
+  viable_play: true
+  
+eighteen:
+  lineup: three
+  card_id: 980190990
+  viable_play: false
+  
+nineteen:
+  lineup: three
+  card_id: 980190972
+  viable_play: false
+  
+twenty:
+  lineup: three
+  card_id: 980190992
+  viable_play: false
+  
+twentyone:
+  lineup: three
+  card_id: 980190979
+  viable_play: false
+  
+twentytwo:
+  lineup: four
+  card_id: 980191005
+  viable_play: false
+  
+twentythree:
+  lineup: four
+  card_id: 980191000
+  viable_play: false
+  
+twentyfour:
+  lineup: four
+  card_id: 980190977
+  viable_play: false
+  
+twentyfive:
+  lineup: four
+  card_id: 980190965
+  viable_play: false
+  
+twentysix:
+  lineup: four
+  card_id: 980190966
+  viable_play: false
+  
+twentyseven:
+  lineup: four
+  card_id: 980191001
+  viable_play: false
+  
+twentyeight:
+  lineup: four
+  card_id: 980190971
+  viable_play: false
+  
+twentynine:
+  lineup: four
+  card_id: 980190981
+  viable_play: false
+  
+thirty:
+  lineup: four
+  card_id: 980190980
+  viable_play: false
+  
+thirtyone:
+  lineup: four
+  card_id: 980191003
+  viable_play: false
+  
+thirtytwo:
+  lineup: four
+  card_id: 980190967
+  viable_play: false
+  
+thirtythree:
+  lineup: one
+  card_id: 980190988
+  viable_play: true
+  
+thirtyfour:
+  lineup: one
+  card_id: 980191013
+  viable_play: false
+  
+thirtyfive:
+  lineup: one
+  card_id: 980191006
+  viable_play: false
+  
+thirtysix:
+  lineup: one
+  card_id: 980190991
+  viable_play: false
+  
+thirtyseven:
+  lineup: one
+  card_id: 980190970
+  viable_play: true
+  
+thirtyeight:
+  lineup: one
+  card_id: 980191010
+  viable_play: true
+  
+thirtynine:
+  lineup: one
+  card_id: 980190982
+  viable_play: true
+  
+forty:
+  lineup: one
+  card_id: 980191002
+  viable_play: false
+  
+fortyone:
+  lineup: one
+  card_id: 980191011
+  viable_play: false
+  
+fortytwo:
+  lineup: one
+  card_id: 980190993
+  viable_play: false

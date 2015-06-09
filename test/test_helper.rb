@@ -11,7 +11,11 @@ end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  fixtures :games
+  fixtures :players
+  fixtures :lineups
+  fixtures :hands
+  fixtures :cards_games
 
   # Add more helper methods to be used by all tests here...
   def is_logged_in?
