@@ -24,10 +24,7 @@ class PasswordResetsController < ApplicationController
   end
   
   def update
-    if password_blank?
-      flash.now[:danger] = "Password can't be blank"
-      render 'edit'
-    elsif @player.update_attributes(player_params)
+    if @player.update_attributes(player_params)
       log_in @player
       flash[:success] = "Password has been reset."
       redirect_to @player
@@ -40,10 +37,6 @@ class PasswordResetsController < ApplicationController
 
   def player_params
     params.require(:player).permit(:password)
-  end
-
-  def password_blank?
-    params[:player][:password].blank?
   end
   
   def get_player

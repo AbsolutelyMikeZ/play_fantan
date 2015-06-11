@@ -2,13 +2,14 @@ require 'test_helper'
 
 class PlayersControllerTest < ActionController::TestCase
   setup do
-    @player = players(:good1)
+    @player = players(:sid)
   end
 
   test "should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:players)
+    assert_not_nil assigns(:stats)
   end
 
   test "should get new" do
@@ -16,30 +17,17 @@ class PlayersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create player" do
-    assert_difference('Player.count') do
-      post :create, player: { email: @player.email, first_name: @player.first_name, human: @player.human, last_name: @player.last_name, password: @player.password, screen_name: @player.screen_name }
-    end
-
-    assert_redirected_to player_path(assigns(:player))
-  end
+# Create controller tested in Players Signup integration test
 
   test "should show player" do
     get :show, id: @player
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @player
-    assert_response :success
-  end
-
-  test "should update player" do
-    patch :update, id: @player, player: { email: @player.email, first_name: @player.first_name, human: @player.human, last_name: @player.last_name, password: @player.password, screen_name: @player.screen_name }
-    assert_redirected_to player_path(assigns(:player))
-  end
+# Edit and Update controllers tested in Players Edit integration test
 
   test "should destroy player" do
+    log_in_as(@player)
     assert_difference('Player.count', -1) do
       delete :destroy, id: @player
     end
