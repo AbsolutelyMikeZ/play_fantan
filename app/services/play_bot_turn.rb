@@ -1,5 +1,14 @@
 class PlayBotTurn
   
+# calculates "score" if multiple viable plays in the bot hand
+# lowest "score" is the hand(card) to be played, thus most likely to help the bot player
+# a "gap" may be calculated.  gap == 1 means the adjacent card, gap == 2 means there is one card missing between, etc
+# score = 10 - 16 for cards that build towards other cards in the hand, with 10 = largest gap
+# score = 20 if player has adjacent card and thus can't help other players
+# score = 30 if card is an Ace or King (thus can't help anyone else)
+# score = 30 - 36 for cards that don't help the player, and only could help other players  
+# 37 is highest score, for a 7 with no other cards in the suit. Strategy: hold this 7 until last possible turn  
+  
   def initialize(game_id)
     @game_id = game_id
   end

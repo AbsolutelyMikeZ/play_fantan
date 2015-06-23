@@ -5,4 +5,12 @@ class ApplicationController < ActionController::Base
   
   include SessionsHelper
   
+  def logged_in_player
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in to continue."
+      redirect_to login_url
+    end
+  end
+    
 end

@@ -4,14 +4,12 @@ class DealNewGame
   end
   
   def deal
-    @deck = Card.all
-    @deck = @deck.shuffle
+    deck = Card.all.shuffle
     
-    i_max = @game.num_players - 1
-    i = rand(0..i_max)
-    @deck.each do |d|
-      hand = Hand.create(:lineup_id => @game.lineups[i].id, :card_id => d.id)
-      i == i_max ? i = 0 : i += 1
+    lineups = @game.lineups.to_a
+    deck.each do |d|
+      lineups[0].hands.create!(:card_id => d.id)
+      lineups.push lineups.shift
     end
     
     #find hand where game = game and card = 7 diamonds and set it's viable_play to true
@@ -19,14 +17,10 @@ class DealNewGame
     seven_diamonds.update_attributes(:viable_play => true)
     
     #set initial turn to player with the 7 of diamonds
-    first_to_play = seven_diamonds.lineup.seat_number
-    @game.update_attributes(:turn => first_to_play)
+    @game.update_attributes(:turn => seven_diamonds.lineup.seat_number)
     
     # If player with 7d is a bot, get the game started
-    if seven_diamonds.lineup.player.human == false
-      PlayBotTurn.new(@game.id).play_turn
-    end
-    
+    seven_diamonds.lineup.player.human? || PlayBotTurn.new(@game.id).play_turn
   end
   
 end

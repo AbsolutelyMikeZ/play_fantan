@@ -2,7 +2,7 @@
 <h1>My Unfinished Games</h1>
 
 <% if logged_in? %>
-  <% games = Game.joins(:players).where("players.id = #{current_player.id}").where("games.completed = false") %>  
+  <% games = current_player.games.where(completed: false) %>  
   <% if games.present? %>
     <table>
       <tr>

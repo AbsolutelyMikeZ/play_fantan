@@ -6,9 +6,9 @@
     <tr>
       <th>Rank</th>
       <% headers = ["Screen Name", "Games Played", "Won (%)", "Profit", "Profit/Game"] %>
-      <% headers.each_with_index do |header, i| %>
-      <% direction = (i + 1) == params[:sort].to_i && params[:order] == "desc" ? "asc" : "desc" %>	
-      <th><%= link_to header, :sort => i + 1, :order => direction %></th>
+      <% headers.each do |header| %>
+        <% direction = header == params[:sort] && params[:order] == "desc" ? "asc" : "desc" %>	
+        <th><%= link_to header, :sort => header, :order => direction %></th>
       <% end %>
     </tr>
   </thead>

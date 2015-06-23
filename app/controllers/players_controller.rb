@@ -7,12 +7,21 @@ class PlayersController < ApplicationController
   # GET /players.json
   def index
     @players = Player.all
-    @stats = leaderboard(params[:sort].to_i, params[:order], params[:page].to_i)
+    @stats = leaderboard(params[:sort], params[:order], params[:page])
   end
 
   # GET /players/1
   # GET /players/1.json
   def show
+    @stats = Lineup.find_by_sql(
+                "SELECT COUNT(*) as games_played, 
+                        SUM(won_pot::int) as wins, 
+                        AVG(won_pot::int) as win_pct, 
+                        SUM(amount_paid) as profit, 
+                        AVG(amount_paid) as ppg 
+                 FROM lineups 
+                 WHERE player_id = #{@player.id}"
+                 ).first
   end
 
   # GET /players/new
@@ -76,39 +85,41 @@ class PlayersController < ApplicationController
       params.require(:player).permit(:first_name, :last_name, :email, :password, :screen_name, :human)
     end
     
-    def logged_in_player
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-    
     def correct_player
       redirect_to(players_url) unless current_player?(set_player)
     end
     
     def leaderboard(sort_col, sort_order, page)
-      sql = "SELECT players.screen_name, COUNT(*) as games_played, SUM(lineups.won_pot::int) as wins, AVG(lineups.won_pot::int) as win_pct, 
-             SUM(lineups.amount_paid) as profit, AVG(lineups.amount_paid) as ppg FROM lineups INNER JOIN players ON lineups.player_id = players.id GROUP BY players.screen_name"
-      cols = %w[players.screen_name games_played wins profit ppg]
-      if sort_col > 0
-        sql += " ORDER BY " + cols[sort_col - 1]
-        if sort_order == "asc"
-          sql += " ASC"
-        elsif sort_order == "desc"
-          sql += " DESC"
-        end
-      else
-        sql += " ORDER BY ppg DESC"
+      page = page.to_i
+
+      sql = "SELECT players.screen_name, 
+                    COUNT(*) as games_played, 
+                    SUM(lineups.won_pot::int) as wins, 
+                    AVG(lineups.won_pot::int) as win_pct, 
+                    SUM(lineups.amount_paid) as profit, 
+                    AVG(lineups.amount_paid) as ppg 
+             FROM lineups 
+             INNER JOIN players ON lineups.player_id = players.id 
+             GROUP BY players.screen_name
+            "
+      col_map = {
+        'Screen Name' => 'players.screen_name',
+        'Games Played' => 'games_played',
+        'Won (%)' => 'wins',
+        'Profit' => 'profit',
+        'Profit/Game' => 'ppg'
+      }
+      
+      order_by = col_map.key?(sort_col) ? col_map[sort_col] : 'ppg DESC'       
+             
+      sql += " ORDER BY " + order_by
+      
+      if ["asc", "desc"].include?(sort_order)
+        sql += ' ' + sort_order
       end
       
-      if page > 0
-        offset = (page - 1) * 20
-        sql += " LIMIT 20 OFFSET #{offset}"
-      else
-        sql += " LIMIT 20 OFFSET 0"
-      end
+      offset = page > 0 ? (page - 1) * 20 : 0
+      sql += " LIMIT 20 OFFSET #{offset}"
       
       Lineup.find_by_sql(sql)
     end
