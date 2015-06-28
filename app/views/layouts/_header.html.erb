@@ -3,12 +3,12 @@
 		<li class="nav-item"><%= link_to "PlayFanTan", root_path %></li>
 		<li class="nav-item"><%= link_to "Leaderboard", players_path %></li>
 		<li class="nav-item"><%= link_to "New Game", new_game_path %></li>
-		<% if logged_in? %>
-		  <li class="nav-item"><%= link_to "#{@current_player.screen_name}'s Profile", current_player %></li>
-		  <li class="nav-item"><%= link_to "Log out", logout_path, method: :delete %></li>
+		<% if player_signed_in? %>
+		  <li class="nav-item"><%= link_to "#{current_player.screen_name}'s Profile", current_player %></li>
+		  <li class="nav-item"><%= link_to "Log out", destroy_player_session_path, method: :delete %></li>
 		<% else %>
-		  <li class="nav-item"><%= link_to "Log in", login_path %></li>
-		  <li class="nav-item"><%= link_to "Create Account", new_player_path %></li>
+		  <li class="nav-item"><%= link_to "Log in", new_player_session_path %></li>
+		  <li class="nav-item"><%= link_to "Create Account", new_player_registration_path %></li>
 		<% end %>
 	</ul>
 </nav>

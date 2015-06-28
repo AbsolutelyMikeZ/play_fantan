@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_player, only: [:new, :create]
+  before_action :authenticate_player!, only: [:new, :create]
 
   # GET /games
   # GET /games.json
@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @human_lineup = @game.lineups.joins(:player).where("players.human = true").first
   end
 
   # GET /games/new

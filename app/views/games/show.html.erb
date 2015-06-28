@@ -8,13 +8,10 @@
 <% end %>
 
 <div id="player_hand">
-	<% human_player = @game.players.select { |x| x.human == true }.first %>
-	<% human_lineup = @game.lineups.select { |x| x.player_id == human_player.id }.first %>
-	<% plays = human_lineup.hands.where("viable_play = true").count %>
 	<h2>My Hand</h2>
-	<% human_lineup.hands.includes(:card).arranged.each do |h| %>
+	<% @human_lineup.hands.includes(:card).arranged.each do |h| %>
 	  <%= form_for h, url: {controller: 'games', action: 'play_card', :hand_id => h.id} do |f| %>
-		<% if h.viable_play && human_lineup.seat_number == @game.turn %>
+		<% if h.viable_play && @human_lineup.seat_number == @game.turn %>
 		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card_valid" %>
 		<% else %>
 		  <%= f.submit "#{h.card.abbreviation}", :type => :image, :src => image_path("#{h.card.abbreviation}.png"), :class => "hand_card", :disabled => true %>
@@ -22,14 +19,14 @@
 	  <% end %>
 	<% end %>
 	<br />
-	<%= form_for human_lineup, url: {controller: 'games', action: "pay_pot", :lineup_id => human_lineup.id} do |f| %>
-	  <% if plays == 0 && @game.completed == false %>
+	<%= form_for @human_lineup, url: {controller: 'games', action: "pay_pot", :lineup_id => @human_lineup.id} do |f| %>
+	  <% if @human_lineup.hands.where("viable_play = true").count == 0 && @game.completed == false %>
 	    <%= f.submit "Pay the Pot", class: "green btn" %>
       <% else %>
 		<%= f.submit "Pay the Pot", class: "green btn disabled_button", disabled: true %>
 	  <% end %>
     <% end %>
-	<h1 class="h1_inline">Paid the pot: <%= -human_lineup.amount_paid %></h1>
+	<h1 class="h1_inline">Paid the pot: <%= -@human_lineup.amount_paid %></h1>
 </div>
 
 <div id="board">

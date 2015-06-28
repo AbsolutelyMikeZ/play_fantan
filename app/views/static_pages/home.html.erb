@@ -4,14 +4,14 @@
 <div id="home_right">
 <h1>Play FanTan!</h1>
 <br />
-<h2>Play this fast and fun card game against 2 to 6 computers players</h2>
+<h2>Play this fast and fun card game against 2 to 7 computers players</h2>
 <br /><br />
-<% if logged_in? %>
+<% if player_signed_in? %>
   <%= link_to("Start a Game!", new_game_path, class: "btn red") %>
 <% else %>
-  <%= link_to("Log In", login_path, class: "btn red") %>
+  <%= link_to("Log In", new_player_session_path, class: "btn red") %>
   or
-  <%= link_to("Sign Up to Play!", new_player_path, class: "btn red") %>
+  <%= link_to("Sign Up to Play!", new_player_registration_path, class: "btn red") %>
 <% end %>
 </div>
 

@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'devise', '~> 3.5.1'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -42,13 +44,13 @@ group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   
-  gem 'guard'
+  # gem 'guard'
 end
 
 group :test do
   gem 'minitest-reporters', '~> 1.0.16'
   gem 'mini_backtrace', '~> 0.1.3'
-  gem 'guard-minitest', '~> 2.4.4'
+  # gem 'guard-minitest', '~> 2.4.4'
 end
 
 group :production do

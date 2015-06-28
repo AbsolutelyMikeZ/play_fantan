@@ -3,11 +3,11 @@
 
 <h2>Name:
 	<%= @player.first_name %>
-	<%= current_player?(@player) ? @player.last_name : @player.last_name[0,1] %>
+	<%= show_last_name %>
 </h2>
 
 <h2>Email:
-  <%= current_player?(@player) ? @player.email : "hidden" %>
+  <%= show_email %>
 </h2>
 
 <h2>Screen name:
@@ -18,8 +18,8 @@
   <span class = "red btn">Robot</span><br /><br />
 <% end %>
 
-<% if current_player?(@player) %>
-  <br /><%= link_to 'Edit', edit_player_path(@player), class: "green btn" %><br /><br />
+<% if current_player == @player %>
+  <br /><%= link_to 'Edit', edit_player_registration_path(@player), class: "green btn" %><br /><br />
 <% end %>
 
 <% if @stats.games_played > 0 %>

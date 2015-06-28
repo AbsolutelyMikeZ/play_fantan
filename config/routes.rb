@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'login' => 'sessions#new'
-  post 'login' => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
+  devise_for :players, :controllers => { registrations: 'registrations' }
 
   resources :players
 
@@ -13,8 +11,6 @@ Rails.application.routes.draw do
       patch 'play_for_bot'
     end
   end
-
-  resources :password_resets, only: [:new, :create, :edit, :update]
     
   root 'static_pages#home'
   
