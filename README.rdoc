@@ -1,33 +1,20 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I created this project to gain a deeper knowledge of Ruby on Rails.
 
-Things you may want to cover:
+FanTan is a card game that I learned to play as a kid.  The rules and strategy are fairly simple in the scheme of card games.
 
-* Ruby version
+With several aspects of this project, I preferred to write code myself rather than rely on gems and "magic".  
+-Wrote the original game and computer logic in just Ruby
+-Initially wrote custom authentication system for player accounts, later adding the devise gem.
+-Wrote simple pagination code for the stat leaderboard
+-Custom jQuery form validation and CSS for signup form
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This game is deployed at: http://fantan.herokuapp.com/
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
 
-
+Playing card images:
 
 Vectorized Playing Cards 1.3- http://code.google.com/p/vectorized-playing-cards/
 Copyright 2011 - Chris Aguilar

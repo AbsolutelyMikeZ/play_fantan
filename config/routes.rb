@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   devise_for :players, :controllers => { registrations: 'registrations' }
 
   resources :players
+  
+  post '/check-screen' => 'players#check_screen_name'
+  post '/check-email' => 'players#check_email'
 
   resources :games do
     member do

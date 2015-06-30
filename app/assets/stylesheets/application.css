@@ -164,6 +164,47 @@ input[type=radio] {
 	margin:8px;
 }
 
+/* FORMS */
+
+textarea, input {
+	outline: none;
+}
+
+.text_box {
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.input_unfilled {
+	border: 1px solid #000000;
+	margin: 2px;
+}
+
+.input_unfilled:focus {
+	border: 2px solid #000000;
+	margin: 1px;
+}
+
+.input_ok {
+	border: 2px solid #26A65B;
+	margin: 1px;
+}
+
+.input_ok:focus {
+	border: 3px solid #26A65B;
+	margin: 0px;
+}
+
+.input_error {
+	border: 2px solid #CC0000;
+	margin: 1px;
+}
+
+.input_error:focus {
+	border: 3px solid #CC0000;
+	margin: 0px;
+}
+
 /* BODY */
 
 body {

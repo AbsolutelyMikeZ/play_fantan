@@ -5,15 +5,15 @@
 
   <div class="field">
     <%= f.label :first_name %><br>
-    <%= f.text_field :first_name, autofocus: true %>
+    <%= f.text_field :first_name, autofocus: true, placeholder: "First name", class: "text_box input_unfilled" %>
   </div>
   <div class="field">
     <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, placeholder: "Last name", class: "text_box input_unfilled" %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email %>
+    <%= f.email_field :email, autocomplete: "off", placeholder: "Email address", class: "text_box input_unfilled" %>
   </div>
 
   <div class="field">
@@ -21,17 +21,17 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "text_box input_unfilled" %>
   </div>
   <div class="field">
     <%= f.label :screen_name %><br>
-    <%= f.text_field :screen_name %>
+    <%= f.text_field :screen_name, placeholder: "Screen name", class: "text_box input_unfilled" %>
   </div>
 
 
 
   <div class="actions">
-    <%= f.submit "Sign up", class: "green btn" %>
+    <%= f.submit "Sign up", class: "green btn", id: "sign_up_submit" %>
   </div>
 <% end %>
 

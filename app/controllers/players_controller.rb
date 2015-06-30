@@ -21,6 +21,24 @@ class PlayersController < ApplicationController
                  WHERE player_id = #{@player.id}"
                  ).first
   end
+  
+  def check_screen_name
+    @player = Player.where("lower(screen_name) = ?", params[:screen_name].downcase).first
+    if @player.present?
+      render :json => [true]
+    else
+      render :json => [false]
+    end
+  end
+  
+  def check_email
+    @player = Player.where("email = ?", params[:email]).first
+    if @player.present?
+      render :json => [true]
+    else
+      render :json => [false]
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
